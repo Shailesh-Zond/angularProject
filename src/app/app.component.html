@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Navigation Example</title>
   <style>
+    /* Your existing styles here */
     :host {
       --bright-blue: oklch(51.01% 0.274 263.83);
       --electric-violet: oklch(53.18% 0.28 296.97);
@@ -114,24 +115,46 @@
       <div class="divider" role="separator" aria-label="Divider"></div>
       <div class="right-side">
         <div class="pill-group">
-         
           <a class="pill" href="admin_login.html" target="_self">
             <span>ADMIN LOGIN</span>
           </a>
-          <a class="pill" href="" target="_self">
+          <a class="pill" href="#" (click)="showLoginForm()">
             <span>USER LOGIN</span>
           </a>
-          <a class="pill" href="" target="_self">
+          <a class="pill" href="#" (click)="showRegisterForm()">
             <span>USER REGISTER</span>
           </a>
-          <a class="pill" href="" target="_self">
+          <a class="pill" href="contact.html" target="_self">
             <span>CONTACT US</span>
           </a>
-          <a class="pill" href="" target="_self">
+          <a class="pill" href="about.html" target="_self">
             <span>ABOUT US</span>
           </a>
         </div>
       </div>
+    </div>
+
+    <!-- User Registration Form -->
+    <div *ngIf="isRegistering" class="register-form">
+      <h2>User Register</h2>
+      <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" [(ngModel)]="user.username" required>
+
+        <label for="email">Email ID:</label>
+        <input type="email" id="email" name="email" [(ngModel)]="user.email" required>
+
+        <label for="contact">Contact Number:</label>
+        <input type="tel" id="contact" name="contact" [(ngModel)]="user.contact" pattern="[0-9]{10}" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" [(ngModel)]="user.password" required>
+
+        <label for="repassword">Confirm Password:</label>
+        <input type="password" id="repassword" name="repassword" [(ngModel)]="user.repassword" required>
+
+        <button type="submit" [disabled]="registerForm.invalid">Register</button>
+      </form>
     </div>
   </main>
 </body>
